@@ -17,7 +17,7 @@ GROUND_SCROLL_SPEED = 60
 
 --Point at which we should loop our background back to x 0
 BACKGROUND_LOOPING_POINT = 1328
-
+GROUND_LOOPING_POINT = 740
 --
 --BIRD_SPEED    =
 
@@ -66,7 +66,7 @@ function love.update(dt)
     backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) % BACKGROUND_LOOPING_POINT
     
     --scroll ground, loops back to 0 after the looping point
-    groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % VIRTUAL_WIDTH
+    groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % GROUND_LOOPING_POINT
 
     --bird class
     --bird:update(dt)
@@ -83,7 +83,7 @@ function love.draw()
 
     --draw the ground on top of the background, toward the bottom of the screen
     --TODO: Se ve cortado cuando vuelve a repetirse el scroll
-    love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 0.7, 0.1)
+    love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
 
     --bird class
     --bird:render()
