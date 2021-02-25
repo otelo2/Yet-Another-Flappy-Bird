@@ -1,5 +1,8 @@
 --physical screen dimensions
 push = require 'push'
+Class = require 'class'
+
+require 'Bird'
 
 --Virtual resolution dimensions
 VIRTUAL_HEIGHT  = 243
@@ -21,8 +24,6 @@ GROUND_LOOPING_POINT = 740
 --
 --BIRD_SPEED    =
 
---bird = Bird()
-
 function love.load()
     --initialize nearest-neighbor filter
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -41,7 +42,8 @@ function love.load()
     background = love.graphics.newImage("Images/background.png")
     --Load the ground image
     ground = love.graphics.newImage("Images/ground.png")
-
+    
+    bird = Bird()
 end
 
 --This is executed when the window is resized
@@ -86,7 +88,7 @@ function love.draw()
     love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
 
     --bird class
-    --bird:render()
+    bird:render()
 
     --end the virtual resolution handling library
     push:apply("end")

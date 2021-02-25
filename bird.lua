@@ -2,9 +2,11 @@ Bird = Class{}
 
 GRAVITY = 20 --?
 
---TODO: Find image for the bird
+local BIRD_IMAGE = love.graphics.newImage("Images/sprite.png")
 
 function Bird:init()
+    self.x = VIRTUAL_WIDTH / 2 - 9
+    self.y = VIRTUAL_HEIGHT / 2 - 12
     -- load bird image and assign width and height
 
     --Position bird in the middle of the screen
@@ -20,5 +22,5 @@ function Bird:update(dt)
 end
 
 function Bird:render()
-    --draw
+    love.graphics.draw(BIRD_IMAGE, self.x, self.y)
 end
