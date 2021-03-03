@@ -8,7 +8,7 @@ PIPE_SPEED = 60
 
 --Dimensions of the pipe image
 PIPE_HEIGHT = 288
-PIPE_WIRDTH = 70
+PIPE_WIDTH = 70
 
 function Pipe:init(orientation, y)
     -- load bird image and assign width and height
