@@ -178,6 +178,11 @@ function love.keypressed(key)
         end
     end
 
+    --Shortcut to get to the win screen
+    if key == 'm' then
+        state = "champion"
+    end
+
     --exit the game pressing esc
     if key == 'escape' then
         love.event.quit()
