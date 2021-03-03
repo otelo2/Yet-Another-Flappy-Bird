@@ -40,6 +40,9 @@ function love.load()
 		vsync=true
 	})
 
+    --initialize the input table
+    love.keyboard.keysPressed = {}
+
     --Load the background images
     background = love.graphics.newImage("Images/background.png")
     --Load the ground image
@@ -56,11 +59,21 @@ end
 
 
 function love.keypressed(key)
-    -- "escape"
+    -- table to cath all the times that the user clics on a key
+    love.keyboard.keysPressed['space'] = true
     
     --exit the game pressing esc
     if key == 'escape' then
         love.event.quit()
+    end
+end
+
+function love.keyboard.wasPressed(key)
+    --find out if the user pressed the key or not
+    if love.keyboard.keysPressed[key] then
+        return true
+    else
+        return false
     end
 end
 
