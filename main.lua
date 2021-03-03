@@ -259,7 +259,7 @@ function love.update(dt)
                 magicplace = love.math.random(VIRTUAL_HEIGHT-24-55)
                 scoreSounds[math.random(#scoreSounds)]:play()
                 pair.dangerous=false
-                if score >= 2 then
+                if score >= 5 then
                     marshmallowshow = true
                 end
                 --update the bestscore if needed
