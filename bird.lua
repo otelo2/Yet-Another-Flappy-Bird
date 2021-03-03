@@ -21,7 +21,7 @@ function Bird:update(dt)
 
     --The bird is always in the middle
     --there is no change in self.x 
-    self.y = self.y + self.dy
+    self.y = math.max(0, self.y + self.dy)
 end
 
 function Bird:collides(pipe)
