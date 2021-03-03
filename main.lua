@@ -140,6 +140,8 @@ function love.keypressed(key)
         end
 
         if state == "finish" then
+            --So you don't miss the finish screen
+            love.timer.sleep(1)
             --Reset all values
             state = "starting"
             bird:reset()
