@@ -41,7 +41,7 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
     --set the window title
-    love.window.setTitle('Something something')
+    love.window.setTitle('Floppy Astronaut')
     
     --initialize our virtual resolution
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -63,6 +63,8 @@ function love.load()
     trophy = love.graphics.newImage("Images/trophy.png")
     --Load the marshmallow image
     marshmallow = love.graphics.newImage("Images/marshmallow.png")
+    --Load the victory image
+    victory = love.graphics.newImage("Images/win.jpg")
     
     --Create the bird object
     bird = Bird()
@@ -73,6 +75,7 @@ function love.load()
     --Bestscore initialization
     bestscore = 0
     record = false
+    initial = true
 
     --winnig item
     marshmallowshow = false
@@ -149,6 +152,7 @@ function love.keypressed(key)
     if key == 'space' or 'w' then
         if state == "starting" then
             state = "playing"
+            initial = false
         end
 
         if state == "playing" then
@@ -156,7 +160,7 @@ function love.keypressed(key)
             flySounds[math.random(#flySounds)]:play()
         end
 
-        if state == "finish" then
+        if state == "finish" or state == "champion" then
             --So you don't miss the finish screen
             love.timer.sleep(1)
             --Reset all values
@@ -251,8 +255,8 @@ function love.update(dt)
                 if score >= 1 then
                     marshmallowshow = true
                     if bird:marshmallow(magicplace) then
-                        --state = 'champion'
-                        score = 100
+                        state = 'champion'
+                        score = 999999
                     end
                 end
                 --update the bestscore if needed
@@ -300,19 +304,21 @@ function love.draw()
     
     --What we render at the start screen
     if state == "starting" then
-        love.graphics.draw(campfire, -60, -40)
-
+        if initial then
+            love.graphics.draw(campfire, -60, -40)
+        else
         --draw the background
-        --love.graphics.draw(background, -backgroundScroll, 0, 0, 1, 0.65)
+        love.graphics.draw(background, -backgroundScroll, 0, 0, 1, 0.65)
 
         --draw the ground on top of the background, toward the bottom of the screen
-        --love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
+        love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
 
         --bird class
-        --bird:render()
+        bird:render()
+        end
 
         --Draw the title of the game
-        love.graphics.printf('GAME TITLE', 0,0,VIRTUAL_WIDTH,'center')
+        love.graphics.printf('Floppy Astronaut', 0,0,VIRTUAL_WIDTH,'center')
 
         --Draw the prompt to start the game
         love.graphics.printf('Press space to start!', 0,30,VIRTUAL_WIDTH,'center')
@@ -365,6 +371,21 @@ function love.draw()
         
         --draw the ground on top of the background, toward the bottom of the screen
         love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
+
+        if record then
+            love.graphics.print('NEW   RECORD', VIRTUAL_WIDTH/2-45, 15)
+            love.graphics.print(tostring(score), VIRTUAL_WIDTH/2, 30)
+            --added trophy picture
+            love.graphics.draw(trophy, VIRTUAL_WIDTH/2-145, 10)
+        else
+            love.graphics.printf('Final score ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
+        end
+    end
+
+    --What is rendered when we win
+    if state == "champion" then
+        --draw the background
+        love.graphics.draw(victory, 0,0, 0,0.2,0.2)
 
         if record then
             love.graphics.print('NEW   RECORD', VIRTUAL_WIDTH/2-45, 15)

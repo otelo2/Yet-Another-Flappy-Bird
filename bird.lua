@@ -27,7 +27,6 @@ end
 function Bird:collides(pipe)
 	if (self.x + 16) >= pipe.x and self.x <= pipe.x + pipe.width then
 		if self.y + 25 >= pipe.y and self.y <= pipe.y + pipe.height then
-			print('a' )
 			return true
 		end
 	end
@@ -46,11 +45,11 @@ end
 
 function Bird:marshmallow(magicplace)
 	--top
-	if self.y < magicplace and self.y > magicplace + 12 or
+	if (self.y >= magicplace and self.y <= magicplace + 12) or
 	--bottom
-	self.y + 25 < magicplace and self.y + 25 > magicplace + 12 or 
+	((self.y + 25) >= magicplace and (self.y + 25) <= (magicplace + 12)) or 
 	--center
-	self.y + 12 < magicplace and self.y + 12 > magicplace + 12 then
+	((self.y + 12) >= magicplace and (self.y + 12) <= (magicplace + 12)) then
 		return true 
 	end
 
