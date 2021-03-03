@@ -15,7 +15,7 @@ function Bird:update(dt)
 	--the bird falls according to the GRAVITY
     self.dy = self.dy + GRAVITY * dt
 
-    if love.keyboard.wasPressed('space') then
+    if love.keyboard.wasPressed('space') or love.keyboard.wasPressed('w') then
     	self.dy = -2
     end
 

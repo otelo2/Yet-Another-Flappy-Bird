@@ -95,9 +95,10 @@ function love.keypressed(key)
     if state == "playing" then
         love.keyboard.keysPressed[key] = true
     end
+    print(key)
 
     --Space to start playing
-    if key == 'space' then
+    if key == 'space' or 'w' then
         if state == "starting" then
             state = "playing"
         end
@@ -105,6 +106,17 @@ function love.keypressed(key)
         if state == "playing" then
             --The '#' gives the number of elements in the table
             flySounds[math.random(#flySounds)]:play()
+        end
+
+        if state == "finish" then
+            --Reset all values
+            state = "starting"
+            bird:reset()
+            --Set a nil value to all elements of the table. Pretty much empties it
+            for k in pairs (pipePairs) do
+                pipePairs[k] = nil
+            end
+            score = 0
         end
     end
 
@@ -136,7 +148,6 @@ function love.update(dt)
         --bird class
         bird:update(dt)
         if bird:crashes() then
-            scrolling = false
             state="finish"
         end
 
@@ -167,7 +178,6 @@ function love.update(dt)
             for l, pipe in pairs(pair.pipes) do
                 if bird:collides(pipe) then
                     -- pause the game to show collision
-                    scrolling = false
                     state="finish"
                 end
             end
@@ -195,6 +205,11 @@ function love.update(dt)
         end
     end
     --End of the playing state
+    if state == "finish" then
+        --Make the scroll values static? I think this isn't needed lmao
+        backgroundScroll = backgroundScroll
+        groundScroll = groundScroll
+    end
 
     --reset the input table
     --if it is not restarted... the astronaut floats away
@@ -208,7 +223,23 @@ function love.draw()
     
     --What we render at the start screen
     if state == "starting" then
+        --draw the background
+        love.graphics.draw(background, -backgroundScroll, 0, 0, 1, 0.65)
+
+        --draw the ground on top of the background, toward the bottom of the screen
+        love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
+
+        --bird class
+        bird:render()
+
+        --Draw the title of the game
+        love.graphics.printf('GAME TITLE', 0,0,VIRTUAL_WIDTH,'center')
+
+        --Draw the prompt to start the game
         love.graphics.printf('Press space to start!', 0,30,VIRTUAL_WIDTH,'center')
+
+        
+
     end
     --End of the starting state
 
@@ -233,6 +264,22 @@ function love.draw()
 
     end
     --End of the playing state
+
+    --What is rendered when we lost
+    if state == "finish" then
+        --draw the background
+        love.graphics.draw(background, -backgroundScroll, 0, 0, 1, 0.65)
+        --draw the ground on top of the background, toward the bottom of the screen
+        love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
+        --bird class
+        bird:render()
+        -- render all the pipe pairs in our scene
+        for k, pair in pairs(pipePairs) do
+            pair:render()
+        end
+
+        love.graphics.printf('Final score: ' .. tostring(score) ..' !', 0,30,VIRTUAL_WIDTH,'center')
+    end
 
     --end the virtual resolution handling library
     push:apply("end")
