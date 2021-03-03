@@ -45,24 +45,9 @@ end
 
 function Bird:marshmallow(magicplace)
 	--top
-	if self.y <= magicplace then
-		if self.y >= (magicplace + 12) then
+	if self.y + 25 > magicplace and self.y < (magicplace + 12) then
 			return true
-		end
 	end
-	--bottom
-	if (self.y + 25) <= magicplace then
-		if (self.y + 25) >= (magicplace + 12) then
-			return true
-		end
-	end
-	--center
-	if (self.y + 12) <= magicplace then
-		if (self.y + 12) >= (magicplace + 12) then		
-			return true 
-		end
-	end
-
 	return false
 end
 

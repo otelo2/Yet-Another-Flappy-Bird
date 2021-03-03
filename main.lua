@@ -76,6 +76,7 @@ function love.load()
     bestscore = 0
     record = false
     initial = true
+    count = 0
 
     --winnig item
     marshmallowshow = false
@@ -249,7 +250,7 @@ function love.update(dt)
             --Increse the score if we got through a pipe
             if pair.x < VIRTUAL_WIDTH/2-16 and pair.dangerous==true then
                 score = score + 1
-                --magicplace = love.math.random(VIRTUAL_HEIGHT-24-55)
+                magicplace = love.math.random(VIRTUAL_HEIGHT-24-55)
                 scoreSounds[math.random(#scoreSounds)]:play()
                 pair.dangerous=false
                 if score >= 1 then
@@ -289,8 +290,13 @@ function love.update(dt)
 
     --check if the bird takes the marshmallow
     if state == "playing" and bird:marshmallow(magicplace) and marshmallowshow then
+        --count = count +1
         state = "champion"
         score = 999999
+        bestscore = score
+    else
+        --debug
+        count = count+1
     end
 
     --reset the input table
@@ -302,6 +308,8 @@ end
 function love.draw()
     --start the filter
     push:apply("start")   
+    
+    love.graphics.setFont(font)     
     
     --What we render at the start screen
     if state == "starting" then
@@ -391,10 +399,11 @@ function love.draw()
         love.graphics.print('SCORE', VIRTUAL_WIDTH-80, VIRTUAL_HEIGHT-45)
         love.graphics.print(tostring(score), VIRTUAL_WIDTH-80, VIRTUAL_HEIGHT-30)
     end
-    love.graphics.setFont(font) 
-    love.graphics.print(tostring(magicplace), 0, 0)
-    --love.graphics.print(tostring(marshmallow:getWidth()), 0, 15)
-    love.graphics.print(tostring(bird.y), 0, 15)
+    --DEBUG INFO
+    --love.graphics.print(tostring(magicplace), 0, 0)
+    --love.graphics.print(tostring(count), 0, 30)
+    --love.graphics.print(tostring(bird.y), 0, 15)
+    
     --end the virtual resolution handling library
     push:apply("end")
 end
