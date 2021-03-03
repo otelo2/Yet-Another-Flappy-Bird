@@ -77,7 +77,9 @@ end
 
 function love.keypressed(key)
     -- table to cath all the times that the user clics on a key
-    love.keyboard.keysPressed[key] = true
+    if state == "playing" then
+        love.keyboard.keysPressed[key] = true
+    end
 
     --Space to start playing
     if key == 'space' then
@@ -85,7 +87,7 @@ function love.keypressed(key)
             state = "playing"
         end
     end
-        
+
     --exit the game pressing esc
     if key == 'escape' then
         love.event.quit()
