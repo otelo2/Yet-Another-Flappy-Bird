@@ -64,6 +64,19 @@ function love.load()
     --Where the argument is the y position of the top pipe
     pipes = PipePair(-137)
 
+    --Load the sound effects
+    flySounds = {
+        love.audio.newSource("Sounds/Propulsor/air1.mp3", "static"),
+        love.audio.newSource("Sounds/Propulsor/air2.mp3", "static"),
+        love.audio.newSource("Sounds/Propulsor/air3.mp3", "static"),
+        love.audio.newSource("Sounds/Propulsor/air4.mp3", "static"),
+        love.audio.newSource("Sounds/Propulsor/air5.mp3", "static"),
+        love.audio.newSource("Sounds/Propulsor/air6.mp3", "static"),
+        love.audio.newSource("Sounds/Propulsor/air7.mp3", "static"),
+        love.audio.newSource("Sounds/Propulsor/air8.mp3", "static"),
+        love.audio.newSource("Sounds/Propulsor/air9.mp3", "static")
+    }
+
     --Set the game state to starting
     state = "starting"
 end
@@ -85,6 +98,11 @@ function love.keypressed(key)
     if key == 'space' then
         if state == "starting" then
             state = "playing"
+        end
+
+        if state == "playing" then
+            --The '#' gives the number of elements in the table
+            flySounds[math.random(#flySounds)]:play()
         end
     end
 
