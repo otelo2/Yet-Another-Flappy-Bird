@@ -57,6 +57,8 @@ function love.load()
     background = love.graphics.newImage("Images/background.png")
     --Load the ground image
     ground = love.graphics.newImage("Images/ground.png")
+    --Load campfire
+    campfire = love.graphics.newImage("Images/campfire.jpg")
     --Load the trophy image
     trophy = love.graphics.newImage("Images/trophy.png")
     
@@ -267,14 +269,16 @@ function love.draw()
     
     --What we render at the start screen
     if state == "starting" then
+        love.graphics.draw(campfire, -60, -40)
+
         --draw the background
-        love.graphics.draw(background, -backgroundScroll, 0, 0, 1, 0.65)
+        --love.graphics.draw(background, -backgroundScroll, 0, 0, 1, 0.65)
 
         --draw the ground on top of the background, toward the bottom of the screen
-        love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
+        --love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
 
         --bird class
-        bird:render()
+        --bird:render()
 
         --Draw the title of the game
         love.graphics.printf('GAME TITLE', 0,0,VIRTUAL_WIDTH,'center')
@@ -330,6 +334,7 @@ function love.draw()
         if record then
             love.graphics.print('NEW   RECORD', VIRTUAL_WIDTH/2-45, 15)
             love.graphics.print(tostring(score), VIRTUAL_WIDTH/2, 30)
+            --added trophy picture
             love.graphics.draw(trophy, VIRTUAL_WIDTH/2-145, 10)
         else
             love.graphics.printf('Final score ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
