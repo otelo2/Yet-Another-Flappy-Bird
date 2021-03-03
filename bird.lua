@@ -21,9 +21,16 @@ function Bird:update(dt)
 
     --The bird is always in the middle
     --there is no change in self.x 
-
     self.y = self.y + self.dy
+end
 
+function Bird:collides(pipe)
+	--bottom
+	--if then
+	--	if then
+	--	end
+	--end
+	return false
 end
 
 function Bird:render()
