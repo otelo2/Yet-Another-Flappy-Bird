@@ -47,3 +47,10 @@ end
 function Bird:render()
     love.graphics.draw(BIRD_IMAGE, self.x, self.y)
 end
+
+function Bird:reset()
+	--Set the bird to its initial values
+	self.x = VIRTUAL_WIDTH / 2 - 9
+    self.y = VIRTUAL_HEIGHT / 2 - 12
+    self.dy = 0
+end
