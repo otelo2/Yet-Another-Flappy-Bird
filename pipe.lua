@@ -7,15 +7,15 @@ local PIPE_IMAGE = love.graphics.newImage('Images/tentacle.png')
 PIPE_SPEED = 60
 
 --Dimensions of the pipe image
-PIPE_HEIGHT = 199
-PIPE_WIDTH = 206
+PIPE_HEIGHT = 120
+PIPE_WIDTH = 84
 
 function Pipe:init(orientation, y)
     -- load bird image and assign width and height
     self.x = VIRTUAL_WIDTH
     self.y = y
 
-    self.width = PIPE_IMAGE:getWidth()
+    self.width = PIPE_WIDTH--PIPE_IMAGE:getWidth()
     self.height = PIPE_HEIGHT
 
     self.orientation = orientation
