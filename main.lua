@@ -26,6 +26,13 @@ GROUND_LOOPING_POINT = 740
 --
 --BIRD_SPEED    =
 
+--Table of spawning PipePairs
+local pipePairs = {}
+
+spawnTimer = 0
+
+lastY = -PIPE_HEIGHT + math.random(80) + 20
+
 function love.load()
     --initialize nearest-neighbor filter
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -79,6 +86,51 @@ function love.update(dt)
 
     --Pipes class
     pipes:update(dt)
+
+    --Next section is taken from: https://github.com/games50/fifty-bird/blob/master/bird7/main.lua
+    spawnTimer = spawnTimer + dt
+
+    -- spawn a new PipePair if the timer is past 1 seconds
+    if spawnTimer > 2 then
+        -- modify the last Y coordinate we placed so pipe gaps aren't too far apart
+        -- no higher than 10 pixels below the top edge of the screen,
+        -- and no lower than a gap length (90 pixels) from the bottom
+        local y = math.max(-PIPE_HEIGHT + 10, 
+            math.min(lastY + math.random(-20, 20), VIRTUAL_HEIGHT - 90 - PIPE_HEIGHT))
+        lastY = y
+        print(y)
+        table.insert(pipePairs, PipePair(y))
+        spawnTimer = 0
+    end
+
+    -- for every pipe pair in the scene...
+    for k, pair in pairs(pipePairs) do
+        pair:update(dt)
+
+        -- check to see if bird collided with pipe
+        for l, pipe in pairs(pair.pipes) do
+            --if bird:collides(pipe) then
+                -- pause the game to show collision
+                scrolling = false
+            --end
+        end
+
+        -- if pipe is no longer visible past left edge, remove it from scene
+        if pair.x < -PIPE_WIDTH then
+            pair.remove = true
+        end
+    end
+
+    -- remove any flagged pipes
+    -- we need this second loop, rather than deleting in the previous loop, because
+    -- modifying the table in-place without explicit keys will result in skipping the
+    -- next pipe, since all implicit keys (numerical indices) are automatically shifted
+    -- down after a table removal
+    for k, pair in pairs(pipePairs) do
+        if pair.remove then
+            table.remove(pipePairs, k)
+        end
+    end
 end
 
 
@@ -96,8 +148,10 @@ function love.draw()
     --bird class
     bird:render()
 
-    --pipes class
-    pipes:render()
+    -- render all the pipe pairs in our scene
+    for k, pair in pairs(pipePairs) do
+        pair:render()
+    end
 
     --end the virtual resolution handling library
     push:apply("end")
