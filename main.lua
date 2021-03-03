@@ -133,6 +133,10 @@ function love.update(dt)
 
         --bird class
         bird:update(dt)
+        if bird:crashes() then
+            scrolling = false
+            state="finish"
+        end
 
         --Pipes class
         pipes:update(dt)
@@ -159,10 +163,11 @@ function love.update(dt)
 
             -- check to see if bird collided with pipe
             for l, pipe in pairs(pair.pipes) do
-                --if bird:collides(pipe) then
+                if bird:collides(pipe) then
                     -- pause the game to show collision
                     scrolling = false
-                --end
+                    state="finish"
+                end
             end
 
             -- if pipe is no longer visible past left edge, remove it from scene

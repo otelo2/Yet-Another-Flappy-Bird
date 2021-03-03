@@ -26,10 +26,21 @@ end
 
 function Bird:collides(pipe)
 	--bottom
-	--if then
-	--	if then
-	--	end
-	--end
+	if (self.x + 16) >= pipe.x and self.x <= pipe.x + 84 then
+		if self.y + 25 >= pipe.y and self.y <= pipe.y + 120 then
+			return true
+		end
+	end
+
+	return false
+end
+
+function Bird:crashes()
+	--bottom
+	if self.y + 55 >= VIRTUAL_HEIGHT then
+		return true 
+	end
+
 	return false
 end
 
