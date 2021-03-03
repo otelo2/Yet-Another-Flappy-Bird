@@ -66,6 +66,7 @@ function love.load()
     score = 0
     --Bestscore initialization
     bestscore = 0
+    record = false
 
     --Load the sound effects
     --When the astronaut goes up
@@ -145,6 +146,7 @@ function love.keypressed(key)
                 pipePairs[k] = nil
             end
             score = 0
+            record = false
         end
     end
 
@@ -222,6 +224,7 @@ function love.update(dt)
                 --update the bestscore if needed
                 if bestscore < score then
                     bestscore = score
+                    record = true
                 end
             end
 
@@ -322,7 +325,12 @@ function love.draw()
         --draw the ground on top of the background, toward the bottom of the screen
         love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
 
-        love.graphics.printf('Final score ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
+        if record then
+            love.graphics.print('NEW   RECORD', VIRTUAL_WIDTH/2-45, 15)
+            love.graphics.print(tostring(score), VIRTUAL_WIDTH/2, 30)
+        else
+            love.graphics.printf('Final score ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
+        end
     end
 
     --end the virtual resolution handling library
