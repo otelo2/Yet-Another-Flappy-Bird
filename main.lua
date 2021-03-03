@@ -71,7 +71,7 @@ function love.update(dt)
     groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % GROUND_LOOPING_POINT
 
     --bird class
-    --bird:update(dt)
+    bird:update(dt)
 
 end
 

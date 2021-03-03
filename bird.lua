@@ -1,6 +1,6 @@
 Bird = Class{}
 
-GRAVITY = 20 --?
+GRAVITY = 30 --?
 
 local BIRD_IMAGE = love.graphics.newImage("Images/austronaut.png")
 
@@ -14,10 +14,11 @@ function Bird:init()
 end
 
 function Bird:update(dt)
-    self.dy = self.dy + GRAVITY * dt
+	--the bird falls according to the GRAVITY
+    self.y = self.y + GRAVITY * dt
 
     --The bird is always in the middle
-    --self.dx = 
+    --there is no change in self.x 
 
 end
 
