@@ -166,6 +166,9 @@ function love.update(dt)
     end
     --End of the playing state
 
+    --reset the input table
+    --if it is not restarted... the astronaut floats away
+    love.keyboard.keysPressed = {}
 end
 
 

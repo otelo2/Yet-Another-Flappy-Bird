@@ -5,13 +5,10 @@ GRAVITY = 20 --?
 local BIRD_IMAGE = love.graphics.newImage("Images/austronaut.png")
 
 function Bird:init()
-    self.x = VIRTUAL_WIDTH / 2 - 9
+    --Position bird in the middle of the screen
+	self.x = VIRTUAL_WIDTH / 2 - 9
     self.y = VIRTUAL_HEIGHT / 2 - 12
     self.dy = 0
-    -- load bird image and assign width and height
-
-    --Position bird in the middle of the screen
-
 end
 
 function Bird:update(dt)
