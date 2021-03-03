@@ -78,6 +78,10 @@ function love.load()
         love.audio.newSource("Sounds/Propulsor/air9.mp3", "static")
     }
 
+    tentacleSounds = {
+        love.audio.newSource("Sounds/Tentacle/tentacle1.mp3", "static"),
+        love.audio.newSource("Sounds/Tentacle/tentacle2.mp3", "static")
+    }
     --Set the game state to starting
     state = "starting"
 end
@@ -104,7 +108,7 @@ function love.keypressed(key)
         end
 
         if state == "playing" then
-            --The '#' gives the number of elements in the table
+            --Play a random fyling sound. The '#' gives the number of elements in the table
             flySounds[math.random(#flySounds)]:play()
         end
 
@@ -178,6 +182,7 @@ function love.update(dt)
             -- check to see if bird collided with pipe
             for l, pipe in pairs(pair.pipes) do
                 if bird:collides(pipe) then
+                    tentacleSounds[math.random(#tentacleSounds)]:play()
                     -- pause the game to show collision
                     state="finish"
                 end
