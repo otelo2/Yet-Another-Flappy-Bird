@@ -59,6 +59,10 @@ Structure:
     /Score - Sound effects for going between two tentacles
     /Tentacle - Sound effects for when the astronaut touches a tentacle
 bird.lua - Class for the behaviour and data of the astronaut
+	 - There is a NEW funtion that verifies the location of the marshmallow: uses the
+	   location of the marshmallow
+	 - There is a NEW function that verifies if the bird crashes against the ground: 
+	   has no input values
 class.lua - Library that adds the Class functionality
 conf.lua - Only was used for debugging
 main.lua - Where all the classes are called and the complete behaviour of the game
