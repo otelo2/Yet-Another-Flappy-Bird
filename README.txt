@@ -19,7 +19,8 @@ ground or pipes makes you start from the beggining. The goal is to get the
 maximum score that you can, with no real end to the game.
 
 Floppy Astronaut follows this idea; you are an astronaut stranded in an alien
-world and need to avoid the aliens while you are looking for -----XXXXEND CONDITION HEREXXXX---------
+world and need to avoid the aliens while you are looking for a really cute 
+marshmallow. The aliens have tentacles that they use to try to catch you.  
 
 State Machine:
                  ┌────────┐
@@ -64,3 +65,22 @@ pipePair.lua - Class that creates two tentacles and sets them in the correct
 push.lua - Library that implements the visual resolution (for pixelated effect)
 README.txt - This file
 
+Modifications:
+This is a list of the modifications that were done to the game. At least the ones
+we can remember. They aren't in any order.
+    Custom background
+    Custom ground
+    Custom bird (astronaut)
+    Custom pipes (tentacles)
+    Tweak the values of the gravity and separation of the pipes
+    Add a scoring system (shows how many points you have)
+    Add a highscore system
+    Starting screen 
+    Music for the starting and playing stages
+    When you lose, you get a text with how many points you got
+    If you got a highscore, you get an image of a trophy
+    A system for winning the game
+    Sound effects for crashing to the ground, touching a tentacle, flying, and
+        scoring
+    Different screen for when you win ("champion" state)
+    ...And many many more!!
