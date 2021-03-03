@@ -64,6 +64,8 @@ function love.load()
     pipes = PipePair(-137)
     --Sets the initial score
     score = 0
+    --Bestscore initialization
+    bestscore = 0
 
     --Load the sound effects
     --When the astronaut goes up
@@ -205,14 +207,19 @@ function love.update(dt)
                     tentacleSounds[math.random(#tentacleSounds)]:play()
                     -- pause the game to show collision
                     state="finish"
+                    --set the bestscore
                 end
             end
 
             --Increse the score if we got through a pipe
-            if pair.x < VIRTUAL_WIDTH/2 and pair.dangerous==true then
+            if pair.x < VIRTUAL_WIDTH/2-16 and pair.dangerous==true then
                 score = score + 1
                 scoreSounds[math.random(#scoreSounds)]:play()
                 pair.dangerous=false
+                --update the bestscore if needed
+                if bestscore < score then
+                    bestscore = score
+                end
             end
 
             -- if pipe is no longer visible past left edge, remove it from scene
@@ -274,9 +281,6 @@ function love.draw()
         --draw the background
         love.graphics.draw(background, -backgroundScroll, 0, 0, 1, 0.65)
 
-        --draw the ground on top of the background, toward the bottom of the screen
-        love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
-
         --bird class
         bird:render()
 
@@ -285,8 +289,16 @@ function love.draw()
             pair:render()
         end
 
+        --draw the ground on top of the background, toward the bottom of the screen
+        love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
+
         --print the score 
         love.graphics.print(tostring(score), VIRTUAL_WIDTH/2, 20)
+
+        love.graphics.print('BESTSCORE', VIRTUAL_WIDTH-70, 10)
+        love.graphics.print(tostring(bestscore), VIRTUAL_WIDTH-20, 20)
+
+
 
     end
     --End of the playing state
@@ -295,14 +307,17 @@ function love.draw()
     if state == "finish" then
         --draw the background
         love.graphics.draw(background, -backgroundScroll, 0, 0, 1, 0.65)
-        --draw the ground on top of the background, toward the bottom of the screen
-        love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
+        
         --bird class
         bird:die()
+        
         -- render all the pipe pairs in our scene
         for k, pair in pairs(pipePairs) do
             pair:render()
         end
+        
+        --draw the ground on top of the background, toward the bottom of the screen
+        love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
 
         love.graphics.printf('Final score: ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
     end
