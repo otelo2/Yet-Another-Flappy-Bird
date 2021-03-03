@@ -2,7 +2,7 @@ Bird = Class{}
 
 GRAVITY = 20 --?
 
-local BIRD_IMAGE = love.graphics.newImage("Images/sprite.png")
+local BIRD_IMAGE = love.graphics.newImage("Images/austronaut.png")
 
 function Bird:init()
     self.x = VIRTUAL_WIDTH / 2 - 9
