@@ -25,9 +25,9 @@ function Bird:update(dt)
 end
 
 function Bird:collides(pipe)
-	--bottom
-	if (self.x + 16) >= pipe.x and self.x <= pipe.x + 84 then
-		if self.y + 25 >= pipe.y and self.y <= pipe.y + 120 then
+	if (self.x + 16) >= pipe.x and self.x <= pipe.x + pipe.width then
+		if self.y + 25 >= pipe.y and self.y <= pipe.y + pipe.height then
+			print('a' )
 			return true
 		end
 	end
