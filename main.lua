@@ -57,6 +57,8 @@ function love.load()
     background = love.graphics.newImage("Images/background.png")
     --Load the ground image
     ground = love.graphics.newImage("Images/ground.png")
+    --Load the trophy image
+    trophy = love.graphics.newImage("Images/trophy.png")
     
     --Create the bird object
     bird = Bird()
@@ -328,6 +330,7 @@ function love.draw()
         if record then
             love.graphics.print('NEW   RECORD', VIRTUAL_WIDTH/2-45, 15)
             love.graphics.print(tostring(score), VIRTUAL_WIDTH/2, 30)
+            love.graphics.draw(trophy, VIRTUAL_WIDTH/2-145, 10)
         else
             love.graphics.printf('Final score ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
         end
