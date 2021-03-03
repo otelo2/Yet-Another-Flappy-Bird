@@ -3,6 +3,8 @@ push = require 'push'
 Class = require 'class'
 
 require 'Bird'
+require 'pipe'
+require 'pipePair'
 
 --Virtual resolution dimensions
 VIRTUAL_HEIGHT  = 243

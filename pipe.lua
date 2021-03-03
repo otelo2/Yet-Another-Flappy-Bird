@@ -1,7 +1,7 @@
 Pipe = Class{}
 
 --Load the image one time instead of each instance 
-local PIPE_IMAGE = love.graphics.newImage('tentacle.png')
+local PIPE_IMAGE = love.graphics.newImage('Images/tentacle.png')
 
 --Speed ad which the pipe scrolls
 PIPE_SPEED = 60
@@ -24,6 +24,8 @@ function Pipe:init(orientation, y)
 end
 
 function Pipe:update(dt)
+
+end
 
 function Pipe:render()
     --draw
