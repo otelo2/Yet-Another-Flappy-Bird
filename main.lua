@@ -115,9 +115,16 @@ function love.load()
         love.audio.newSource("Sounds/Floor/floor3.mp3", "static"),
         love.audio.newSource("Sounds/Floor/floor4.mp3", "static")
     }
+
     --letters
     smallfont = love.graphics.newFont('Font/ARCADECLASSIC.ttf', 10)
     font = love.graphics.newFont('Font/ARCADECLASSIC.ttf', 18)
+
+    --Load the music
+    startingMusic = love.audio.newSource("Music/mainMenu.mp3", "stream")
+    startingMusic:setVolume(0.5) --50% volume
+    playingMusic = love.audio.newSource("Music/playing.mp3", "stream")
+    playingMusic:setVolume(0.1) --10% volume
 
     --Set the game state to starting
     state = "starting"
@@ -185,6 +192,10 @@ end
 function love.update(dt)
     --Describe what should happen when we are playing
     if state == "playing" then
+        --Play the music for this state
+        playingMusic:play()
+        startingMusic:stop()
+
         --scroll background by present speed * dt, loops back to 0 after the looping point
         backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) % BACKGROUND_LOOPING_POINT
 
@@ -270,10 +281,10 @@ function love.update(dt)
         end
     end
     --End of the playing state
-    if state == "finish" then
-        --Make the scroll values static? I think this isn't needed lmao
-        backgroundScroll = backgroundScroll
-        groundScroll = groundScroll
+    if state == "starting" then
+        --Play the main menu music
+        startingMusic:play()
+        playingMusic:stop()
     end
 
     --reset the input table
