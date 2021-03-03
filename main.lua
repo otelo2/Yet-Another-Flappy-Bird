@@ -23,8 +23,6 @@ GROUND_SCROLL_SPEED = 60
 --Point at which we should loop our background back to x 0
 BACKGROUND_LOOPING_POINT = 1328
 GROUND_LOOPING_POINT = 740
---
---BIRD_SPEED    =
 
 --From https://github.com/games50/fifty-bird/blob/master/bird7/main.lua
 --Table of spawning PipePairs
@@ -47,7 +45,7 @@ function love.load()
     
     --initialize our virtual resolution
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
-		fullscreen=false,			--NO se puede usar pantalla completa
+		fullscreen=false,
 		resizable=true,	
 		vsync=true
 	})
@@ -60,10 +58,11 @@ function love.load()
     --Load the ground image
     ground = love.graphics.newImage("Images/ground.png")
     
+    --Create the bird object
     bird = Bird()
     --Where the argument is the y position of the top pipe
     pipes = PipePair(-137)
-
+    --Sets the initial score
     score = 0
 
     --Load the sound effects
@@ -83,6 +82,7 @@ function love.load()
     state = "starting"
 end
 
+
 --This is executed when the window is resized
 function love.resize(w, h)
     --Pass to the push library the new dimensions of the window
@@ -90,12 +90,12 @@ function love.resize(w, h)
 end
 
 
+--Runs when a key is pressed
 function love.keypressed(key)
     -- table to cath all the times that the user clics on a key
     if state == "playing" then
         love.keyboard.keysPressed[key] = true
     end
-    print(key)
 
     --Space to start playing
     if key == 'space' or 'w' then
@@ -125,6 +125,7 @@ function love.keypressed(key)
         love.event.quit()
     end
 end
+
 
 function love.keyboard.wasPressed(key)
     --find out if the user pressed the key or not
@@ -182,6 +183,7 @@ function love.update(dt)
                 end
             end
 
+            --Increse the score if we got through a pipe
             if pair.x < VIRTUAL_WIDTH/2 and pair.dangerous==true then
                 score = score + 1
                 pair.dangerous=false
@@ -238,8 +240,6 @@ function love.draw()
         --Draw the prompt to start the game
         love.graphics.printf('Press space to start!', 0,30,VIRTUAL_WIDTH,'center')
 
-        
-
     end
     --End of the starting state
 
@@ -278,7 +278,7 @@ function love.draw()
             pair:render()
         end
 
-        love.graphics.printf('Final score: ' .. tostring(score) ..' !', 0,30,VIRTUAL_WIDTH,'center')
+        love.graphics.printf('Final score: ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
     end
 
     --end the virtual resolution handling library
