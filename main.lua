@@ -3,8 +3,8 @@ push = require 'push'
 Class = require 'class'
 
 require 'Bird'
-require 'pipe'
-require 'pipePair'
+require 'Pipe'
+require 'PipePair'
 
 --Virtual resolution dimensions
 VIRTUAL_HEIGHT  = 243
@@ -46,6 +46,8 @@ function love.load()
     ground = love.graphics.newImage("Images/ground.png")
     
     bird = Bird()
+    --Where the argument is the y position of the top pipe
+    pipes = PipePair(-137)
 end
 
 --This is executed when the window is resized
@@ -75,6 +77,8 @@ function love.update(dt)
     --bird class
     bird:update(dt)
 
+    --Pipes class
+    pipes:update(dt)
 end
 
 
@@ -91,6 +95,9 @@ function love.draw()
 
     --bird class
     bird:render()
+
+    --pipes class
+    pipes:render()
 
     --end the virtual resolution handling library
     push:apply("end")
