@@ -93,6 +93,14 @@ function love.load()
         love.audio.newSource("Sounds/Score/score4.ogg", "static"),
     }
 
+    --When you crash on the floor
+    floorSounds = {
+        love.audio.newSource("Sounds/Floor/floor1.mp3", "static"),
+        love.audio.newSource("Sounds/Floor/floor2.mp3", "static"),
+        love.audio.newSource("Sounds/Floor/floor3.mp3", "static"),
+        love.audio.newSource("Sounds/Floor/floor4.mp3", "static")
+    }
+
     --Set the game state to starting
     state = "starting"
 end
@@ -164,6 +172,7 @@ function love.update(dt)
         --bird class
         bird:update(dt)
         if bird:crashes() then
+            floorSounds[math.random(#floorSounds)]:play()
             state="finish"
         end
 
