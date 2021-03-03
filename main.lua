@@ -122,8 +122,8 @@ function love.load()
     }
 
     --letters
-    smallfont = love.graphics.newFont('Font/ARCADECLASSIC.ttf', 10)
-    font = love.graphics.newFont('Font/ARCADECLASSIC.ttf', 18)
+    smallfont = love.graphics.newFont('Font/ARCADECLASSIC.TTF', 10)
+    font = love.graphics.newFont('Font/ARCADECLASSIC.TTF', 18)
 
     --Load the music
     startingMusic = love.audio.newSource("Music/mainMenu.mp3", "stream")

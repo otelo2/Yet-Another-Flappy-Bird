@@ -1,5 +1,5 @@
 function love.conf(t)
-    t.title = "Flappy ???"        --Title of the window (string)
+    t.title = "Floppy Astronaut"        --Title of the window (string)
     t.version = "11.3"      --LOVE version this game was made for (string)
     t.console = false        --Attach a console (boolean, windows only)
     --t.window.width = 1280   --The window width (integer)
