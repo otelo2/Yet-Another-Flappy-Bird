@@ -66,6 +66,7 @@ function love.load()
     score = 0
 
     --Load the sound effects
+    --When the astronaut goes up
     flySounds = {
         love.audio.newSource("Sounds/Propulsor/air1.mp3", "static"),
         love.audio.newSource("Sounds/Propulsor/air2.mp3", "static"),
@@ -78,10 +79,20 @@ function love.load()
         love.audio.newSource("Sounds/Propulsor/air9.mp3", "static")
     }
 
+    --When a colision with a tentacle
     tentacleSounds = {
         love.audio.newSource("Sounds/Tentacle/tentacle1.mp3", "static"),
         love.audio.newSource("Sounds/Tentacle/tentacle2.mp3", "static")
     }
+
+    --When you get a point
+    scoreSounds = {
+        love.audio.newSource("Sounds/Score/score1.ogg", "static"),
+        love.audio.newSource("Sounds/Score/score2.ogg", "static"),
+        love.audio.newSource("Sounds/Score/score3.ogg", "static"),
+        love.audio.newSource("Sounds/Score/score4.ogg", "static"),
+    }
+
     --Set the game state to starting
     state = "starting"
 end
@@ -191,6 +202,7 @@ function love.update(dt)
             --Increse the score if we got through a pipe
             if pair.x < VIRTUAL_WIDTH/2 and pair.dangerous==true then
                 score = score + 1
+                scoreSounds[math.random(#scoreSounds)]:play()
                 pair.dangerous=false
             end
 
