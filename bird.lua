@@ -1,6 +1,6 @@
 Bird = Class{}
 
-GRAVITY = 50 --?
+GRAVITY = 20 --?
 
 local BIRD_IMAGE = love.graphics.newImage("Images/austronaut.png")
 
@@ -19,9 +19,7 @@ function Bird:update(dt)
     self.dy = self.dy + GRAVITY * dt
 
     if love.keyboard.wasPressed('space') then
-    	self.dy = -2
-    --else
-    --	self.dy = 1
+    	self.dy = -5
     end
 
     --The bird is always in the middle

@@ -69,7 +69,7 @@ end
 
 function love.keypressed(key)
     -- table to cath all the times that the user clics on a key
-    love.keyboard.keysPressed['space'] = true
+    love.keyboard.keysPressed[key] = true
     
     --exit the game pressing esc
     if key == 'escape' then
