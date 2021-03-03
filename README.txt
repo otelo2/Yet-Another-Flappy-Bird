@@ -8,6 +8,8 @@ ______ _                            ___      _                               _
               |_|   |_|    |___/                                                 
 By: María Fernanda Flores Luna (162064) & José Antonio Solís Martínez (162442)
 For the course P21-LIS3092-1 LABORATORIO DE VIDEOJUEGOS
+Ascii art created using: 
+https://patorjk.com/software/taag/#p=display&f=Doom&t=Floppy%20Astronaut
 
 This is a modification of the Flappy Bird game found in: 
 https://github.com/games50/fifty-bird
@@ -38,6 +40,8 @@ State Machine:
     │            ┌───────┐         │
     └────────────┤finish ◄─────────┘
                  └───────┘
+Diagram created using: https://asciiflow.com/#/
+
 The game starts in the "starting" state, then it moves to the "playing" state 
 when the user presses the space bar. From the playing state, if the astronaut
 collides with a tentacle or the ground, we will move to the "finish" state; but
@@ -84,3 +88,8 @@ we can remember. They aren't in any order.
         scoring
     Different screen for when you win ("champion" state)
     ...And many many more!!
+
+References:
+https://patorjk.com/software/taag/#p=display&f=Doom&t=Floppy%20Astronaut
+https://github.com/games50/fifty-bird
+https://asciiflow.com/#/
