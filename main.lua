@@ -80,6 +80,7 @@ function love.load()
 
     --winnig item
     marshmallowshow = false
+    win=false
     love.math.setRandomSeed(love.timer.getTime())
     magicplace = VIRTUAL_HEIGHT/2-12
 
@@ -253,7 +254,7 @@ function love.update(dt)
                 magicplace = love.math.random(VIRTUAL_HEIGHT-24-55)
                 scoreSounds[math.random(#scoreSounds)]:play()
                 pair.dangerous=false
-                if score >= 1 then
+                if score >= 2 then
                     marshmallowshow = true
                 end
                 --update the bestscore if needed
@@ -393,6 +394,8 @@ function love.draw()
 
     --What is rendered when we win
     if state == "champion" then
+        love.timer.sleep(1)
+
         --draw the background
         love.graphics.draw(victory, 90,-10, 0,0.4,0.4)
         love.graphics.print('VICTORY', 0+30, 15)
