@@ -44,6 +44,19 @@ function Bird:crashes()
 	return false
 end
 
+function Bird:marshmallow(magicplace)
+	--top
+	if self.y < magicplace and self.y > magicplace + 12 or
+	--bottom
+	self.y + 25 < magicplace and self.y + 25 > magicplace + 12 or 
+	--center
+	self.y + 12 < magicplace and self.y + 12 > magicplace + 12 then
+		return true 
+	end
+
+	return false
+end
+
 function Bird:render()
     love.graphics.draw(BIRD_IMAGE, self.x, self.y)
 end

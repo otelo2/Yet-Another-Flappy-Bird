@@ -61,6 +61,8 @@ function love.load()
     campfire = love.graphics.newImage("Images/campfire.jpg")
     --Load the trophy image
     trophy = love.graphics.newImage("Images/trophy.png")
+    --Load the marshmallow image
+    marshmallow = love.graphics.newImage("Images/marshmallow.png")
     
     --Create the bird object
     bird = Bird()
@@ -71,6 +73,12 @@ function love.load()
     --Bestscore initialization
     bestscore = 0
     record = false
+
+    --winnig item
+    marshmallowshow = false
+    love.math.setRandomSeed(love.timer.getTime())
+    magicplace = VIRTUAL_HEIGHT/2-12
+
 
     --Load the sound effects
     --When the astronaut goes up
@@ -146,6 +154,7 @@ function love.keypressed(key)
             love.timer.sleep(1)
             --Reset all values
             state = "starting"
+            marshmallowshow = false
             bird:reset()
             --Set a nil value to all elements of the table. Pretty much empties it
             for k in pairs (pipePairs) do
@@ -225,8 +234,16 @@ function love.update(dt)
             --Increse the score if we got through a pipe
             if pair.x < VIRTUAL_WIDTH/2-16 and pair.dangerous==true then
                 score = score + 1
+                magicplace = love.math.random(VIRTUAL_HEIGHT-24-55)
                 scoreSounds[math.random(#scoreSounds)]:play()
                 pair.dangerous=false
+                if score >= 1 then
+                    marshmallowshow = true
+                    if bird:marshmallow(magicplace) then
+                        --state = 'champion'
+                        score = 100
+                    end
+                end
                 --update the bestscore if needed
                 if bestscore < score then
                     bestscore = score
@@ -238,6 +255,7 @@ function love.update(dt)
             if pair.x < -PIPE_WIDTH then
                 pair.remove = true
             end
+
         end
 
         -- remove any flagged pipes
@@ -314,6 +332,10 @@ function love.draw()
         love.graphics.setFont(smallfont)
         love.graphics.print('BESTSCORE', VIRTUAL_WIDTH-70, 10)
         love.graphics.print(tostring(bestscore), VIRTUAL_WIDTH-45, 20)
+
+        if marshmallowshow then
+            love.graphics.draw(marshmallow, VIRTUAL_WIDTH/2-12, magicplace, 0, 0.05, 0.05)
+        end
     end
     --End of the playing state
 
