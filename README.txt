@@ -16,8 +16,8 @@ https://github.com/games50/fifty-bird
 
 Description:
 Flappy Bird is a game where a you controll a little bird and try to make it go
-through pipes, where each pipe you cross gives you a point. Coliding with the
-ground or pipes makes you start from the beggining. The goal is to get the 
+through pipes, where each pipe you cross gives you a point. Colliding with the
+ground or pipes makes you start from the beginning. The goal is to get the 
 maximum score that you can, with no real end to the game.
 
 Floppy Astronaut follows this idea; you are an astronaut stranded in an alien
@@ -43,7 +43,7 @@ State Machine:
 Diagram created using: https://asciiflow.com/#/
 
 The game starts in the "starting" state, then it moves to the "playing" state 
-when the user presses the space bar. From the playing state, if the astronaut
+when the user presses the spacebar. From the playing state, if the astronaut
 collides with a tentacle or the ground, we will move to the "finish" state; but
 if the astronaut manages to collect the marshmallow, we will move to the
 "champion" state and win the game. From both the "champion" and "finish" 
@@ -56,7 +56,7 @@ Structure:
 /Sounds
     /Floor - Sound effects for when the astronaut hits the floor
     /Propulsor - Sound effects for the astronaut going up
-    /Score - Sound effects for goingh between two tentacles
+    /Score - Sound effects for going between two tentacles
     /Tentacle - Sound effects for when the astronaut touches a tentacle
 bird.lua - Class for the behaviour and data of the astronaut
 class.lua - Library that adds the Class functionality
