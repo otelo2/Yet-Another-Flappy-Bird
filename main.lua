@@ -249,15 +249,11 @@ function love.update(dt)
             --Increse the score if we got through a pipe
             if pair.x < VIRTUAL_WIDTH/2-16 and pair.dangerous==true then
                 score = score + 1
-                magicplace = love.math.random(VIRTUAL_HEIGHT-24-55)
+                --magicplace = love.math.random(VIRTUAL_HEIGHT-24-55)
                 scoreSounds[math.random(#scoreSounds)]:play()
                 pair.dangerous=false
                 if score >= 1 then
                     marshmallowshow = true
-                    if bird:marshmallow(magicplace) then
-                        state = 'champion'
-                        score = 999999
-                    end
                 end
                 --update the bestscore if needed
                 if bestscore < score then
@@ -291,6 +287,12 @@ function love.update(dt)
         playingMusic:stop()
     end
 
+    --check if the bird takes the marshmallow
+    if state == "playing" and bird:marshmallow(magicplace) and marshmallowshow then
+        state = "champion"
+        score = 999999
+    end
+
     --reset the input table
     --if it is not restarted... the astronaut floats away
     love.keyboard.keysPressed = {}
@@ -300,7 +302,6 @@ end
 function love.draw()
     --start the filter
     push:apply("start")   
-    love.graphics.setFont(font)	
     
     --What we render at the start screen
     if state == "starting" then
@@ -385,18 +386,15 @@ function love.draw()
     --What is rendered when we win
     if state == "champion" then
         --draw the background
-        love.graphics.draw(victory, 0,0, 0,0.2,0.2)
-
-        if record then
-            love.graphics.print('NEW   RECORD', VIRTUAL_WIDTH/2-45, 15)
-            love.graphics.print(tostring(score), VIRTUAL_WIDTH/2, 30)
-            --added trophy picture
-            love.graphics.draw(trophy, VIRTUAL_WIDTH/2-145, 10)
-        else
-            love.graphics.printf('Final score ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
-        end
+        love.graphics.draw(victory, 90,-10, 0,0.4,0.4)
+        love.graphics.print('VICTORY', 0+30, 15)
+        love.graphics.print('SCORE', VIRTUAL_WIDTH-80, VIRTUAL_HEIGHT-45)
+        love.graphics.print(tostring(score), VIRTUAL_WIDTH-80, VIRTUAL_HEIGHT-30)
     end
-
+    love.graphics.setFont(font) 
+    love.graphics.print(tostring(magicplace), 0, 0)
+    --love.graphics.print(tostring(marshmallow:getWidth()), 0, 15)
+    love.graphics.print(tostring(bird.y), 0, 15)
     --end the virtual resolution handling library
     push:apply("end")
 end
