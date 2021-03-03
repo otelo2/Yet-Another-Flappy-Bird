@@ -26,6 +26,8 @@ function PipePair:init(y)
         ['lower'] = Pipe('bottom', self.y + PIPE_HEIGHT + GAP_HEIGHT)
     }
 
+    self.dangerous=true
+
     -- whether this pipe pair is ready to be removed from the scene
     self.remove = false
 end

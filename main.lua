@@ -64,6 +64,8 @@ function love.load()
     --Where the argument is the y position of the top pipe
     pipes = PipePair(-137)
 
+    score = 0
+
     --Load the sound effects
     flySounds = {
         love.audio.newSource("Sounds/Propulsor/air1.mp3", "static"),
@@ -170,6 +172,11 @@ function love.update(dt)
                 end
             end
 
+            if pair.x < VIRTUAL_WIDTH/2 and pair.dangerous==true then
+                score = score + 1
+                pair.dangerous=false
+            end
+
             -- if pipe is no longer visible past left edge, remove it from scene
             if pair.x < -PIPE_WIDTH then
                 pair.remove = true
@@ -207,7 +214,6 @@ function love.draw()
 
     --What is rendered when we play
     if state == "playing" then
-
         --draw the background
         love.graphics.draw(background, -backgroundScroll, 0, 0, 1, 0.65)
 
@@ -221,6 +227,9 @@ function love.draw()
         for k, pair in pairs(pipePairs) do
             pair:render()
         end
+
+        --print the score 
+        love.graphics.print(tostring(score), VIRTUAL_WIDTH/2, 20)
 
     end
     --End of the playing state
