@@ -102,6 +102,9 @@ function love.load()
         love.audio.newSource("Sounds/Floor/floor3.mp3", "static"),
         love.audio.newSource("Sounds/Floor/floor4.mp3", "static")
     }
+    --letters
+    smallfont = love.graphics.newFont('Font/ARCADECLASSIC.ttf', 10)
+    font = love.graphics.newFont('Font/ARCADECLASSIC.ttf', 18)
 
     --Set the game state to starting
     state = "starting"
@@ -254,7 +257,8 @@ end
 
 function love.draw()
     --start the filter
-    push:apply("start")   	
+    push:apply("start")   
+    love.graphics.setFont(font)	
     
     --What we render at the start screen
     if state == "starting" then
@@ -295,11 +299,10 @@ function love.draw()
         --print the score 
         love.graphics.print(tostring(score), VIRTUAL_WIDTH/2, 20)
 
+        --change the font
+        love.graphics.setFont(smallfont)
         love.graphics.print('BESTSCORE', VIRTUAL_WIDTH-70, 10)
-        love.graphics.print(tostring(bestscore), VIRTUAL_WIDTH-20, 20)
-
-
-
+        love.graphics.print(tostring(bestscore), VIRTUAL_WIDTH-45, 20)
     end
     --End of the playing state
 
@@ -319,7 +322,7 @@ function love.draw()
         --draw the ground on top of the background, toward the bottom of the screen
         love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
 
-        love.graphics.printf('Final score: ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
+        love.graphics.printf('Final score ' .. tostring(score) ..'!', 0,30,VIRTUAL_WIDTH,'center')
     end
 
     --end the virtual resolution handling library
