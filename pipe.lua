@@ -1,7 +1,7 @@
 Pipe = Class{}
 
 --Load the image one time instead of each instance 
-local PIPE_IMAGE = love.graphics.newImage('t.png')
+local PIPE_IMAGE = love.graphics.newImage('tentacle.png')
 
 --Speed ad which the pipe scrolls
 PIPE_SPEED = 60
