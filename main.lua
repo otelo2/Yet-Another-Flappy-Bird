@@ -289,7 +289,7 @@ function love.draw()
         --draw the ground on top of the background, toward the bottom of the screen
         love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT-30, 0, 1, 0.1)
         --bird class
-        bird:render()
+        bird:die()
         -- render all the pipe pairs in our scene
         for k, pair in pairs(pipePairs) do
             pair:render()

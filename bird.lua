@@ -48,6 +48,10 @@ function Bird:render()
     love.graphics.draw(BIRD_IMAGE, self.x, self.y)
 end
 
+function Bird:die()
+    love.graphics.draw(BIRD_IMAGE, self.x, self.y+15, math.rad(-45), 1, 1)
+end
+
 function Bird:reset()
 	--Set the bird to its initial values
 	self.x = VIRTUAL_WIDTH / 2 - 9
